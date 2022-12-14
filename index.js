@@ -77,6 +77,13 @@ app.get("/api/persons/:id", (request, response) => {
   }
 });
 
+app.get("/info", (request, response) => {
+  const sumPerson = persons.length;
+  response.write(`<p>Phonebook has info for ${sumPerson} people</p>`);
+  response.write(Date());
+  response.send;
+});
+
 const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
