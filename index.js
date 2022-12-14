@@ -1,24 +1,26 @@
 const express = require("express");
 const app = express();
 
-let notes = [
+let persons = [
   {
     id: 1,
-    content: "HTML is easy",
-    date: "2022-01-10T17:30:31.098Z",
-    important: true,
+    name: "Arto Hellas",
+    number: "040-123456",
   },
   {
     id: 2,
-    content: "Browser can execute only Javascript",
-    date: "2022-01-10T18:39:34.091Z",
-    important: false,
+    name: "Ada Lovelace",
+    number: "39-44-5323523",
   },
   {
     id: 3,
-    content: "GET and POST are the most important methods of HTTP protocol",
-    date: "2022-01-10T19:20:14.298Z",
-    important: true,
+    name: "Dan Abramov",
+    number: "12-43-234345",
+  },
+  {
+    id: 4,
+    name: "Mary Poppendieck",
+    number: "39-23-6423122",
   },
 ];
 
@@ -33,7 +35,7 @@ const generateId = () => {
   return maxId + 1;
 };
 
-app.post("/api/notes", (request, response) => {
+app.post("/api/persons", (request, response) => {
   const body = request.body;
 
   if (!body.content) {
@@ -42,35 +44,34 @@ app.post("/api/notes", (request, response) => {
     });
   }
 
-  const note = {
-    content: body.content,
-    important: body.important || false,
-    date: new Date(),
+  const person = {
+    name: body.name,
+    number: body.number,
     id: generateId(),
   };
 
-  notes = notes.concat(note);
+  persons = persons.concat(person);
 
-  response.json(note);
+  response.json(persons);
 });
 
-app.get("/api/notes", (req, res) => {
-  res.json(notes);
+app.get("/api/persons", (req, res) => {
+  res.json(persons);
 });
 
-app.delete("/api/notes/:id", (request, response) => {
+app.delete("/api/persons/:id", (request, response) => {
   const id = Number(request.params.id);
-  notes = notes.filter((note) => note.id !== id);
+  persons = persons.filter((person) => person.id !== id);
 
   response.status(204).end();
 });
 
-app.get("/api/notes/:id", (request, response) => {
+app.get("/api/persons/:id", (request, response) => {
   const id = Number(request.params.id);
-  const note = notes.find((note) => note.id === id);
+  const person = persons.find((person) => person.id === id);
 
-  if (note) {
-    response.json(note);
+  if (person) {
+    response.json(person);
   } else {
     response.status(404).end();
   }
