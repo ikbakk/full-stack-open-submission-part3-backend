@@ -59,6 +59,22 @@ app.get("/api/persons", (req, res) => {
   res.json(persons);
 });
 
+app.post("/api/persons", (req, res, next) => {
+  console.log(req.body);
+  const content = req.body;
+  const newPerson = new Person({
+    name: content.name,
+    number: content.number,
+  });
+
+  newPerson
+    .saver()
+    .then((person) => {
+      res.json(person);
+    })
+    .catch((error) => next(error));
+});
+
 app.delete("/api/persons/:id", (request, response) => {
   const id = Number(request.params.id);
   persons = persons.filter((person) => person.id !== id);
