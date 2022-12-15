@@ -26,10 +26,6 @@ app.use(
 );
 app.use(express.json());
 
-// morgan.token("ob", function (req) {
-//   return `${JSON.stringify(req.body)}`;
-// });
-
 app.get("/api/persons", (req, res, next) => {
   Person.find({})
     .then((persons) => {
@@ -57,6 +53,18 @@ app.get("/api/persons/:id", (req, res, next) => {
       } else {
         response.status(404).end();
       }
+    })
+    .catch((error) => next(error));
+});
+
+app.put("/api/persons/:id", (req, res, next) => {
+  const updatedPerson = {
+    name: req.body.name,
+    number: req.body.number,
+  };
+  Person.findByIdAndUpdate(req.params.id, updatedPerson, { new: true })
+    .then((result) => {
+      res.json(result);
     })
     .catch((error) => next(error));
 });
