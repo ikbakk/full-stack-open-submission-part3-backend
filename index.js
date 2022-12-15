@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
-const baseUrl = "htt[://localhost:3001/api/persons";
+const baseUrl = "http://localhost:3001/api/persons";
 const cors = require("cors");
 
 let persons = [
