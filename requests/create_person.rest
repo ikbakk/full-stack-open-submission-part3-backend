@@ -1,0 +1,28 @@
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "FooBar Baz",
+  "number": "040-12312388"
+}
+
+###
+
+# Error: missing field
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "number": "040-12312388"
+}
+
+###
+
+# Error: name must be unique
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Arto Hellas",
+  "number": "040-12312388"
+}
