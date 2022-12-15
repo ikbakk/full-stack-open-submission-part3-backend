@@ -10,7 +10,7 @@ if (process.argv.length < 3) {
   process.exit(1);
 }
 
-const url = `mongodb+srv://ikbal:<password>@cluster0.91tyz2w.mongodb.net/?retryWrites=true&w=majority`;
+const url = `mongodb+srv://ikbal:${password}@cluster0.91tyz2w.mongodb.net/?retryWrites=true&w=majority`;
 
 //   mongodb+srv://fullstack:<password>@cluster0.eusd4.mongodb.net/<dbname>?retryWrites=true&w=majority
 
