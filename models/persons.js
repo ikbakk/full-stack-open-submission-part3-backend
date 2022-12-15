@@ -28,7 +28,13 @@ const personSchema = new mongoose.Schema({
     required: [true, "number is required"],
     unique: true,
     validate: {
-      validator: (value) => value.replace(/[^0-9]/g, "").length >= 8,
+      validator: (v) => {
+        if (!v.includes("-")) {
+          return /^\d+$/.test(v);
+        }
+        return /^\d{2}-\d+$/.test(v) || /^\d{3}-\d+$/.test(v);
+      },
+      message: (props) => `${props.value} is not a valid number`,
     },
   },
 });
