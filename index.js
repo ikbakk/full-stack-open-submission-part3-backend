@@ -1,8 +1,9 @@
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
-const baseUrl = "http://localhost:3001/api/persons";
+const router = express.Router();
 const cors = require("cors");
+const path = require("path");
 
 let persons = [
   {
@@ -27,7 +28,12 @@ let persons = [
   },
 ];
 
+router.get("/", function (req, res) {
+  res.sendFile(path.join(__dirname, "/index.html/index.html"));
+});
+app.use("/", router);
 app.use(express.json());
+app.use(express.static("dist"));
 app.use(cors());
 
 morgan.token("ob", function (req, res) {
